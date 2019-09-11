@@ -26,7 +26,7 @@
                 </div>
                 <form action="/create" method="post" id="Login">
                     <div class="form-group">
-                        <input type="text" class="col-xs-2" name="BookID" placeholder="BookID" required><br></br>
+                        <input type="number" class="col-xs-2" name="BookID" placeholder="BookID" required><br></br>
                     </div>
                     <div class="form-group">
                         <input type="text" class="col-xs-2" name="BName" placeholder="Book Name" required><br></br>
@@ -35,6 +35,8 @@
                         <input type="text" class="col-xs-2" name="BAuth" placeholder="Author" required><br></br>
                     </div>
                     <button type="submit" class="btn btn-primary">Create</button>
+                    <p id="Msg"><%= message %></p>
+
                 </form>
             </div>
         </div>

@@ -79,7 +79,8 @@ app.post('/create', function (req, res) {
         }
     }
     if (found == true) {
-        console.log("Book ID already exist ")
+        res.render('create', { message: "Book ID already exist" });
+        console.log("Book ID already exist ");
     }
     else { //add the book
         var newBook = {
@@ -88,11 +89,8 @@ app.post('/create', function (req, res) {
             "Author": req.body.BAuth
         };
         books.push(newBook);
+        res.render('create', { message: "New Book Created" });
     }
-    console.log(req.body.BookID);
-    console.log(req.body.BName);
-    console.log(req.body.BAuth);
-
 });
 
 app.get('/home', function (req, res) {
@@ -118,7 +116,7 @@ app.get('/create', function (req, res) {
     if (!req.session.user) {
         res.redirect('/');
     } else {
-        res.render('create');
+        res.render('create', { message: "" });
     }
 
 });
@@ -140,10 +138,11 @@ app.delete('/delete', function (req, res) {
         if (found) {
             console.log("book found at index ", i);
             books.splice(i, 1);
+            res.json({ message: "book deleted!" });
         } else {
-            console.log('Book doesnt exsist');
+            res.json({ message: "Book doesnt exsist" });
         }
-        res.send('book deleted!');
+
     }
 })
 

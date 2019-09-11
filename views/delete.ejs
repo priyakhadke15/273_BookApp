@@ -14,7 +14,9 @@
             xhr.open('DELETE', `/delete?DelID=${id}`, true);
             xhr.onreadystatechange = function () {
                 if (this.status == 200 && this.readyState == 4) {
-                    alert('deleted!');
+                    var msg = JSON.parse(this.responseText);
+                    document.getElementById("Msg").innerHTML = msg.message;
+
                 }
             }
             xhr.send();
@@ -40,9 +42,10 @@
                 <!-- <form action="/delete" method="DELETE" id="DelForm"> -->
                 <form onsubmit="javascript:return deleteBook(event)">
                     <div class="form-group">
-                        <input type="text" class="col-xs-2" id="DelID" name="DelID" placeholder="Book ID"
+                        <input type="number" class="col-xs-2" id="DelID" name="DelID" placeholder="Book ID"
                             required><br></br>
                         <button type="submit" class="btn btn-primary">Delete</button>
+                        <p id="Msg"></p>
                     </div>
                 </form>
             </div>
