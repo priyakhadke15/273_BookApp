@@ -1,0 +1,54 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function deleteBook(event) {
+            event.preventDefault();
+            var id = document.getElementById("DelID").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open('DELETE', `/delete?DelID=${id}`, true);
+            xhr.onreadystatechange = function () {
+                if (this.status == 200 && this.readyState == 4) {
+                    alert('deleted!');
+                }
+            }
+            xhr.send();
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h3>Book Store App</h3>
+        <ul class="nav nav-pills">
+            <li><a href="/home">List All Books</a></li>
+            <li class="active"><a href="/delete">Delete a Book</a></li>
+            <li><a href="/create">Create a Book</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="login-form">
+            <div class="main-div">
+                <div class="panel">
+                    <p>Enter the book ID to delete</p>
+                </div>
+                <!-- <form action="/delete" method="DELETE" id="DelForm"> -->
+                <form onsubmit="javascript:return deleteBook(event)">
+                    <div class="form-group">
+                        <input type="text" class="col-xs-2" id="DelID" name="DelID" placeholder="Book ID"
+                            required><br></br>
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
