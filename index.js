@@ -62,6 +62,7 @@ app.post('/login', function (req, res) {
             else {
                 // var loginError = true;
                 res.render('login', { loginError: true });
+
             }
 
         })
@@ -72,24 +73,30 @@ app.post('/login', function (req, res) {
 app.post('/create', function (req, res) {
     var bookID = req.body.BookID;
     var found = false;
-    for (var i = 0; i < books.length; i++) {
-        if (books[i].BookID == bookID) {
-            found = true;
-            break;
+    if (req.session.user) {
+
+        for (var i = 0; i < books.length; i++) {
+            if (books[i].BookID == bookID) {
+                found = true;
+                break;
+            }
+        }
+        if (found == true) {
+            res.render('create', { message: "Book ID already exist" });
+            console.log("Book ID already exist ");
+        }
+        else { //add the book
+            var newBook = {
+                "BookID": req.body.BookID,
+                "Title": req.body.BName,
+                "Author": req.body.BAuth
+            };
+            books.push(newBook);
+            res.render('create', { message: "New Book Created" });
         }
     }
-    if (found == true) {
-        res.render('create', { message: "Book ID already exist" });
-        console.log("Book ID already exist ");
-    }
-    else { //add the book
-        var newBook = {
-            "BookID": req.body.BookID,
-            "Title": req.body.BName,
-            "Author": req.body.BAuth
-        };
-        books.push(newBook);
-        res.render('create', { message: "New Book Created" });
+    else {
+        res.render('login', { loginError: false });
     }
 });
 
